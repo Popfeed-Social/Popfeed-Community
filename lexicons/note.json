@@ -1,0 +1,254 @@
+{
+  "lexicon": 1,
+  "id": "social.popfeed.feed.note",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "identifiers",
+          "creativeWorkType",
+          "text",
+          "createdAt"
+        ],
+        "properties": {
+          "identifiers": {
+            "type": "ref",
+            "ref": "#identifiers"
+          },
+          "creativeWorkType": {
+            "type": "string",
+            "enum": [
+              "movie",
+              "tv_show",
+              "video_game",
+              "album",
+              "book",
+              "book_series",
+              "episode",
+              "album",
+              "ep",
+              "tv_season",
+              "tv_episode",
+              "track"
+            ],
+            "description": "The type of creative work this note is about."
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 3000,
+            "maxGraphemes": 300,
+            "description": "The primary post content. May be an empty string, if there are embeds."
+          },
+          "facets": {
+            "type": "array",
+            "description": "Annotations of text (mentions, URLs, hashtags, etc)",
+            "items": {
+              "type": "ref",
+              "ref": "social.popfeed.richtext.facet"
+            }
+          },
+          "embed": {
+            "type": "union",
+            "refs": [
+              "social.popfeed.embed.images"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Title of the creative work."
+          },
+          "posterUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "DEPRECTED - soon to be ignored"
+          },
+          "poster": {
+            "type": "blob",
+            "accept": [
+              "image/*"
+            ],
+            "maxSize": 2000000,
+            "description": "Poster or cover image for the creative work. Have not fully cut over yet so may not be shown"
+          },
+          "backdropUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "DEPRECTED - soon to be ignored"
+          },
+          "releaseDate": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Release date of the creative work."
+          },
+          "genres": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          "mainCredit": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Main actor, director, author, or artist of the creative work."
+          },
+          "mainCreditRole": {
+            "type": "string",
+            "enum": [
+              "director",
+              "author",
+              "artist",
+              "showrunner",
+              "lead_actor",
+              "creator",
+              "studio",
+              "publisher",
+              "developer",
+              "performer",
+              "network"
+            ],
+            "description": "The role of the main credit."
+          },
+          "containsSpoilers": {
+            "type": "boolean",
+            "description": "Indicates if the review contains spoilers."
+          },
+          "bookProgress": {
+            "type": "ref",
+            "ref": "#bookProgress",
+            "description": "Reading progress for books or book series (also supports audiobooks via time fields)."
+          },
+          "crossPosts": {
+            "type": "ref",
+            "ref": "#crossPosts",
+            "description": "Information about cross-posting to other platforms."
+          }
+        }
+      }
+    },
+    "identifiers": {
+      "type": "object",
+      "properties": {
+        "imdbId": {
+          "type": "string"
+        },
+        "isbn10": {
+          "type": "string"
+        },
+        "isbn13": {
+          "type": "string"
+        },
+        "asin": {
+          "type": "string"
+        },
+        "other": {
+          "type": "string"
+        },
+        "tmdbId": {
+          "type": "string"
+        },
+        "igdbId": {
+          "type": "string"
+        },
+        "mbId": {
+          "type": "string",
+          "description": "MusicBrainz ID for entities"
+        },
+        "parentMbReleaseId": {
+          "type": "string",
+          "description": "MusicBrainz ID for parent release (e.g., album for a track)"
+        },
+        "mbReleaseId": {
+          "type": "string",
+          "description": "MusicBrainz ID for specific releases (albums, EPs, tracks)"
+        },
+        "episodeNumber": {
+          "type": "integer",
+          "description": "Episode number for TV shows or series"
+        },
+        "seasonNumber": {
+          "type": "integer",
+          "description": "Season number for TV shows or series"
+        },
+        "tmdbTvSeriesId": {
+          "type": "string",
+          "description": "TMDb ID for TV series"
+        }
+      }
+    },
+    "bookProgress": {
+      "type": "object",
+      "description": "Tracks reading/listening progress for a book or book series item.",
+      "required": [
+        "status",
+        "updatedAt"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "in_progress",
+            "completed",
+            "paused"
+          ],
+          "description": "Overall progress state."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "datetime",
+          "description": "Last time progress was updated."
+        },
+        "currentPage": {
+          "type": "integer",
+          "description": "Current page number (if applicable)."
+        },
+        "totalPages": {
+          "type": "integer",
+          "description": "Total pages (if known)."
+        },
+        "currentChapter": {
+          "type": "integer",
+          "description": "Current chapter number (optional alternative to pages)."
+        },
+        "totalChapters": {
+          "type": "integer",
+          "description": "Total chapters (if known)."
+        },
+        "percent": {
+          "type": "integer",
+          "description": "Optional explicit progress percentage (0–100)."
+        }
+      }
+    },
+    "crossPosts": {
+      "type": "object",
+      "properties": {
+        "leaflet": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URI of the original Leaflet post being cross-posted."
+        },
+        "bluesky": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URI of the original Bluesky post being cross-posted."
+        }
+      }
+    }
+  }
+}

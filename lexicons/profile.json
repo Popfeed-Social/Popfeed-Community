@@ -1,0 +1,66 @@
+{
+  "lexicon": 1,
+  "id": "social.popfeed.actor.profile",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A declaration of a user's profile information.",
+      "key": "literal:self",
+      "record": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "maxGraphemes": 64,
+            "maxLength": 640
+          },
+          "description": {
+            "type": "string",
+            "description": "Free-form profile description text.",
+            "maxGraphemes": 256,
+            "maxLength": 2560
+          },
+          "banner": {
+            "type": "blob",
+            "description": "Larger horizontal image to display behind profile view. Have not fully cut over yet so may not be shown",
+            "accept": ["image/png", "image/jpeg"],
+            "maxSize": 1000000
+          },
+          "bannerUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Optional URL to a banner image. DEPRECATED - soon to be ignored"
+          },
+          "createdAt": { "type": "string", "format": "datetime" },
+          "externalLinks": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#externalLink"
+            },
+            "description": "List of external links to the user's profiles on other services."
+          }
+        }
+      }
+    },
+    "externalLink": {
+      "type": "object",
+      "required": [
+        "service",
+        "url"
+      ],
+      "properties": {
+        "service": {
+          "type": "string",
+          "description": "Name of the external service (e.g., 'Twitter', 'GitHub').",
+          "maxLength": 100
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the user's profile on the external service."
+        }
+      }
+    }
+  }
+}

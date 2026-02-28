@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "social.popfeed.challenge.definition",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["title", "description", "challenge"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the challenge."
+          },
+            "description": {
+            "type": "string",
+            "description": "A brief description of the challenge."
+          },
+          "challenge": {
+            "type": "union",
+            "refs": [
+              "social.popfeed.challenge.readingGoal"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

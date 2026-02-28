@@ -1,0 +1,48 @@
+{
+    "lexicon": 1,
+    "id": "social.popfeed.challenge.participation",
+    "description": "User participation in reading goal challenges.",
+    "defs": {
+        "main": {
+            "type": "record",
+            "key": "tid",
+            "record": {
+                "type": "object",
+                "required": [
+                    "title",
+                    "description",
+                    "challengeUri",
+                    "progress",
+                    "challenge"
+                ],
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "The title of the challenge participation."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A brief description of the challenge participation."
+                    },
+                    "progress": {
+                        "type": "union",
+                        "refs": [
+                            "social.popfeed.challenge.readingGoalProgress"
+                        ]
+                    },
+                    "challenge": {
+                        "type": "union",
+                        "refs": [
+                            "social.popfeed.challenge.readingGoal"
+                        ]
+                    },
+                    "challengeUri": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "URI of the challenge this participation refers to."
+                    }
+                }
+            }
+        }
+    }
+}

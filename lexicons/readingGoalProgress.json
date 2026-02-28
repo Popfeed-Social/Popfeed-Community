@@ -1,0 +1,69 @@
+{
+    "lexicon": 1,
+    "id": "social.popfeed.challenge.readingGoalProgress",
+    "defs": {
+        "main": {
+            "type": "object",
+            "description": "A representation of a reading goal challenge progress.",
+            "required": [
+                "readingGoalProgress"
+            ],
+            "properties": {
+                "readingGoalProgress": {
+                    "type": "ref",
+                    "ref": "#readingGoalProgress"
+                }
+            }
+        },
+        "readingGoalProgress": {
+            "type": "object",
+            "description": "Progress for a reading goal.",
+            "required": [
+                "currentBooks",
+                "currentPages",
+                "status",
+                "updatedAt"
+            ],
+            "properties": {
+                "currentBooks": {
+                    "type": "integer",
+                    "description": "Number of books completed toward this goal.",
+                    "minimum": 0,
+                    "default": 0
+                },
+                "currentPages": {
+                    "type": "integer",
+                    "description": "Number of pages read toward this goal.",
+                    "minimum": 0,
+                    "default": 0
+                },
+                "status": {
+                    "type": "string",
+                    "description": "User's current status relative to this goal.",
+                    "enum": [
+                        "not_started",
+                        "in_progress",
+                        "completed",
+                        "not_finished"
+                    ],
+                    "default": "not_started"
+                },
+                "joinedAt": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "When the user started tracking this goal."
+                },
+                "completedAt": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "When the user completed this goal (if applicable)."
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "When this progress record was last updated."
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,61 @@
+{
+    "lexicon": 1,
+    "id": "social.popfeed.challenge.readingGoal",
+    "defs": {
+        "main": {
+            "type": "object",
+            "description": "A representation of a reading goal challenge.",
+            "required": [
+                "readingGoal"
+            ],
+            "properties": {
+                "readingGoal": {
+                    "type": "ref",
+                    "ref": "#readingGoal"
+                }
+            }
+        },
+        "readingGoal": {
+            "type": "object",
+            "description": "Definition of a reading goal challenge.",
+            "required": [
+                "targetBooks",
+                "startsAt",
+                "endsAt",
+                "createdAt"
+            ],
+            "properties": {
+                "targetBooks": {
+                    "type": "integer",
+                    "description": "Target number of books to read in the year.",
+                    "minimum": 1
+                },
+                "targetPages": {
+                    "type": "integer",
+                    "description": "Target number of pages to read in the year.",
+                    "minimum": 1
+                },
+                "startsAt": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "When this reading goal period begins (e.g. start of year)."
+                },
+                "endsAt": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "When this reading goal period ends (e.g. end of year)."
+                },
+                "createdAt": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "When this goal definition was created."
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "When this goal definition was last updated."
+                }
+            }
+        }
+    }
+}

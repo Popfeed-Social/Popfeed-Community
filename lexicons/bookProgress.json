@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "social.popfeed.book.progress",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "description": "User reading/listening progress for a book or book series.",
+        "required": ["identifiers", "status", "updatedAt"],
+        "properties": {
+          "identifiers": {
+            "type": "ref",
+            "ref": "#identifiers",
+            "description": "External identifiers for the book or book series."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["in_progress", "completed", "paused"],
+            "description": "Overall reading or listening progress state."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Time of last progress update."
+          },
+
+          "currentPage": {
+            "type": "integer",
+            "description": "Current page number."
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Total pages if known."
+          },
+
+          "currentChapter": {
+            "type": "integer",
+            "description": "Current chapter (optional alternative to pages)."
+          },
+          "totalChapters": {
+            "type": "integer",
+            "description": "Total chapters if known."
+          },
+
+          "percent": {
+            "type": "integer",
+            "description": "Explicit progress percentage (0–100)."
+          },
+
+          "currentTimeSeconds": {
+            "type": "integer",
+            "description": "Current audiobook position in seconds."
+          },
+          "totalTimeSeconds": {
+            "type": "integer",
+            "description": "Total audiobook length in seconds."
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Title of the book or book series."
+          }
+        }
+      }
+    },
+    "identifiers": {
+      "type": "object",
+      "description": "External identifiers for the book or book series.",
+      "properties": {
+        "isbn10": { "type": "string" },
+        "isbn13": { "type": "string" },
+        "asin": { "type": "string" },
+        "other": { "type": "string" }
+      }
+    }
+  }
+}

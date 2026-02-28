@@ -1,0 +1,47 @@
+{
+    "lexicon": 1,
+    "id": "social.popfeed.feed.comment",
+    "defs": {
+      "main": {
+        "type": "record",
+        "description": "Record containing a comment on a review.",
+        "key": "tid",
+        "record": {
+          "type": "object",
+          "required": ["text", "subjectUri", "createdAt"],
+          "properties": {
+            "text": {
+              "type": "string",
+              "maxLength": 1000,
+              "description": "The primary comment content."
+            },
+            "facets": {
+              "type": "array",
+              "description": "Annotations of text (mentions, URLs, hashtags, etc).",
+              "items": { "type": "ref", "ref": "social.popfeed.richtext.facet" }
+            },
+            "subjectUri": {
+              "type": "string",
+              "format": "uri",
+              "description": "The URI of the review being commented on."
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "datetime",
+              "description": "Client-declared timestamp when this comment was created."
+            },
+            "subjectType": {
+              "type": "string",
+              "description": "The type of subject being commented on, e.g., 'review'.",
+              "enum": ["review", "list", "post", "comment"]
+            },
+            "rootUri": {
+              "type": "string",
+              "format": "uri",
+              "description": "The URI of the root entity of the comment thread, if applicable."
+            }
+          }
+        }
+      }
+    }
+  }
